@@ -37,11 +37,3 @@ http
   })
   .listen(8080);
 console.log(`The server is up and running`);
-
-//Is filepath is global variable?  Why was I able to use filepath with lowercase p?
-//Why didn't it force me use let or const?
-
-//could not use import, had to use require
-//url.parse method is depreciated
-
-//The template literal does not work the way it's supposed to
