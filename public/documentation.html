@@ -12,7 +12,7 @@
     />
     <title>MOVIE SERVER API</title>
   </head>
-  <body>
+  <body class="m-2">
     <p class="text-center display-6">
       This server will retrieve and parse the URL entered by the user
     </p>
@@ -32,6 +32,9 @@
           <td>Return a list of ALL movies to the user</td>
           <td>/movies</td>
           <td>GET</td>
+          <td>none</td>
+          <td>none</td>
+          <td>A JSON object holding data about all the movies</td>
         </tr>
         <tr>
           <td>
@@ -39,6 +42,24 @@
             featured or not) about a single movie by title to the user
           </td>
           <td>/movies/[title]</td>
+          <td>GET</td>
+          <td>/users/:Username</td>
+          <td>none</td>
+          <td>
+            A JSON object holding data about a single movie, containing title,
+            description, genre, director, imageURL and featured structured like:
+            <br />
+            <span class="text-danger"
+              >{<br />
+              title: string, <br />
+              description: string, <br />
+              genre: string,<br />
+              director: string,<br />
+              imageURL: string <br />
+              featured: boolean <br />
+              }</span
+            >
+          </td>
         </tr>
         <tr>
           <td>
@@ -46,32 +67,120 @@
             “Thriller”)
           </td>
           <td>/genres/[NameOrTitle]</td>
+          <td>GET</td>
+          <td>/genres/:NameOrTitle</td>
+          <td>none</td>
+          <td>
+            A JSON object holding the name of the genre structured like:
+            <br />
+            <span class="text-danger"
+              >{<br />
+              genre: string <br />
+              }</span
+            >
+          </td>
         </tr>
         <tr>
           <td>
             Return data about a director (bio, birth year, death year) by name
           </td>
           <td>/directors[Name]</td>
+          <td>GET</td>
+          <td>/directors/:Name</td>
+          <td>none</td>
+          <td>
+            A JSON object holding data about director containing bio, birth year
+            and death year structured like:
+            <br />
+            <span class="text-danger"
+              >{<br />
+              bio: string, <br />
+              birth_year: date, <br />
+              death_year: date <br />
+              }</span
+            >
+          </td>
         </tr>
         <tr>
           <td>Allow new users to register</td>
           <td>/users</td>
+          <td>POST</td>
+          <td>none</td>
+          <td>
+            A JSON object holding data about the user to add stuctured like:
+            <br />
+            <span class="text-danger"
+              >{<br />
+              username: string, <br />
+              password: string,<br />
+              email: string,<br />
+              BOD: date <br />
+              }</span
+            >
+          </td>
+          <td>
+            A JSON object holding data about the user that has been added,
+            including the ID stuctured like:
+            <br />
+            <span class="text-danger"
+              >{<br />
+              userID: string, <br />
+              username: string, <br />
+              password: string,<br />
+              email: string,<br />
+              BOD: date <br />
+              }</span
+            >
+          </td>
         </tr>
         <tr>
           <td>Allow users to update their user info (username)</td>
           <td>/users/[Username]</td>
+          <td>PUT</td>
+          <td>/users/:Username</td>
+          <td>
+            A JSON object holding data about the user to update stuctured like:
+            <br />
+            <span class="text-danger"
+              >{<br />
+              password: string,<br />
+              email: string,<br />
+              }</span
+            >
+          </td>
+          <td>A text message with the updated student information</td>
         </tr>
         <tr>
           <td>Allow users to add a movie to their list of favorites</td>
-          <td>/users/[AddMovie]/favorites/[Movie]</td>
+          <td>/users/[user]/favorites/[Movie]</td>
+          <td>POST</td>
+          <td>/users/:user/favorites/:Movie</td>
+          <td>none</td>
+          <td>
+            A text message that confirms that the movie has been added to the
+            user's favorites
+          </td>
         </tr>
         <tr>
           <td>Allow users to remove a movie from their list of favorites</td>
           <td>/users/[RemoveMovie]</td>
+          <td>DELETE</td>
+          <td>/users/:RemoveMovie</td>
+          <td>none</td>
+          <td>
+            A text message that confirms that the movie has been removed from
+            the user's favorites
+          </td>
         </tr>
         <tr>
           <td>Allow existing users to deregister</td>
-          <td>/users</td>
+          <td>/users/[Username]</td>
+          <td>DELETE</td>
+          <td>/users:Username</td>
+          <td>none</td>
+          <td>
+            A text message that confirms that the user account has been deleted
+          </td>
         </tr>
       </tbody>
     </table>
