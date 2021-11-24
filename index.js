@@ -1,5 +1,20 @@
+const mongoose = require("mongoose");
+const Models = require("./models.js");
+const bodyParser = require("body-parser");
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
 const express = require("express");
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+mongoose.connect("mongodb://localhost:27017/movies", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const movies = [
   {
