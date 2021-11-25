@@ -124,7 +124,7 @@ app.get("/users", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send("Error: " + err);
+      res.status(500).send("Error: " + err + "it works");
     });
 });
 
