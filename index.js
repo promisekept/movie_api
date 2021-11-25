@@ -59,6 +59,10 @@ const movies = [
   },
 ];
 
+app.get("/", (req, res) => {
+  res.send("Welcome to MyFlix");
+});
+
 app.get("/movies", (req, res) => {
   res.json(movies);
   // res.send("Successful GET request, returning data on all the movies");
