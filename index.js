@@ -16,10 +16,12 @@ mongoose.connect("mongodb://localhost:27017/movies", {
   useUnifiedTopology: true,
 });
 
+//Welcome screen
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix");
 });
 
+//List all movies
 app.get("/movies", (req, res) => {
   Movies.find()
     .then((movies) => {
@@ -31,17 +33,7 @@ app.get("/movies", (req, res) => {
     });
 });
 
-// app.get("/users/:Username", (req, res) => {
-//   Users.findOne({ Username: req.params.Username })
-//     .then((user) => {
-//       res.json(user);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send("Error: " + err);
-//     });
-// });
-
+//Show information about a specific movie
 app.get("/movies/:Title", (req, res) => {
   Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
@@ -53,23 +45,31 @@ app.get("/movies/:Title", (req, res) => {
     });
 });
 
+//Show information about a specific genre
 app.get("/genres/:NameOrTitle", (req, res) => {
-  res.send(`Here's the name or title: ${req.params.NameOrTitle}`);
+  Movies.findOne({ "Genre.Name": req.params.NameOrTitle })
+    .then((movie) => {
+      res.json(movie.Genre);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("Error" + err);
+    });
 });
 
+//Show information about a specific director
 app.get("/directors/:Name", (req, res) => {
-  res.send(`Here's the director's name: ${req.params.Name}`);
+  Movies.findOne({ "Director.Name": req.params.Name })
+    .then((movie) => {
+      res.json(movie.Director);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("Error" + err);
+    });
 });
 
-//Add a user
-/* We'll expect JSON in this format
-{
-   ID: Integer,
-   Username: String,
-   Password: String,
-   Email: String,
-   Birthday: Date
-}*/
+//Register a new users
 app.post("/users", (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
@@ -121,18 +121,7 @@ app.get("/users/:Username", (req, res) => {
     });
 });
 
-// Update a user's info, by username
-/* We’ll expect JSON in this format
-{
-  Username: String,
-  (required)
-  Password: String,
-  (required)
-  Email: String,
-  (required)
-  Birthday: Date
-}*/
-
+//Update user information
 app.put("/users/:Username", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
@@ -175,8 +164,23 @@ app.post("/users/:Username/movies/:MovieID", (req, res) => {
   );
 });
 
-app.delete("/users/:RemoveMovie", (req, res) => {
-  res.send(`Successful DELETE request to remove a user's movie`);
+//Allow the user to delete a movie
+app.delete("/users/:Username/movies/:MovieID", (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $pull: { FavoriteMovies: req.params.MovieID },
+    },
+    { new: true },
+    (err, removeFavorite) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send(`Error: + ${err}`);
+      } else {
+        res.json(removeFavorite);
+      }
+    }
+  );
 });
 
 // Delete a user by username

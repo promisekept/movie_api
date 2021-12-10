@@ -41,9 +41,10 @@
             Return data (description, genre, director, image URL, whether it’s
             featured or not) about a single movie by title to the user
           </td>
-          <td>/movies/[title]</td>
+          <td>/movies/[Title]</td>
           <td>GET</td>
-          <td>/users/:Username</td>
+          <td>none</td>
+          <!-- <td>/users/:Username</td> -->
           <td>none</td>
           <td>
             A JSON object holding data about a single movie, containing title,
@@ -148,7 +149,20 @@
               }</span
             >
           </td>
-          <td>A text message with the updated student information</td>
+          <td>
+            A JSON object holding data about the user that has been added,
+            including the ID stuctured like:
+            <br />
+            <span class="text-danger"
+              >{<br />
+              userID: string, <br />
+              username: string, <br />
+              password: string,<br />
+              email: string,<br />
+              favorite movies: string<br />
+              }</span
+            >
+          </td>
         </tr>
         <tr>
           <td>Allow users to add a movie to their list of favorites</td>
@@ -157,8 +171,18 @@
           <td>/users/:user/favorites/:Movie</td>
           <td>none</td>
           <td>
-            A text message that confirms that the movie has been added to the
-            user's favorites
+            A JSON object holding data about the user that has been added,
+            including the ID stuctured like:
+            <br />
+            <span class="text-danger"
+              >{<br />
+              userID: string, <br />
+              username: string, <br />
+              password: string,<br />
+              email: string,<br />
+              favorite movies: string<br />
+              }</span
+            >
           </td>
         </tr>
         <tr>
@@ -168,8 +192,18 @@
           <td>/users/:RemoveMovie</td>
           <td>none</td>
           <td>
-            A text message that confirms that the movie has been removed from
-            the user's favorites
+            A JSON object holding data about the user that has been added,
+            including the ID stuctured like:
+            <br />
+            <span class="text-danger"
+              >{<br />
+              userID: string, <br />
+              username: string, <br />
+              password: string,<br />
+              email: string,<br />
+              favorite movies: string<br />
+              }</span
+            >
           </td>
         </tr>
         <tr>
