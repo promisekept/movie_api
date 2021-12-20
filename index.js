@@ -11,6 +11,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let auth = require("./auth")(app);
+
+const passport = require("passport");
+require("./passport");
+
 mongoose.connect("mongodb://localhost:27017/movies", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -22,16 +27,20 @@ app.get("/", (req, res) => {
 });
 
 //List all movies
-app.get("/movies", (req, res) => {
-  Movies.find()
-    .then((movies) => {
-      res.status(201).json(movies);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send("Error:" + err);
-    });
-});
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then((movies) => {
+        res.status(201).json(movies);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send("Error:" + err);
+      });
+  }
+);
 
 //Show information about a specific movie
 app.get("/movies/:Title", (req, res) => {
